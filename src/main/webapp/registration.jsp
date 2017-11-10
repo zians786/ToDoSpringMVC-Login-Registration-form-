@@ -46,7 +46,7 @@
                   </div>
                   </div>
                   <div class="form-bottom">
-                <form role="form" action="Registration" method="post" class="registration-form">
+                <form role="form" action="registration" method="post" class="registration-form">
                   <div class="form-group">
                       <input id="name" type="text" name="userName" placeholder="Username..."class=" form-control" required>
                        <span class="name" style="color:#19b9e7"></span>

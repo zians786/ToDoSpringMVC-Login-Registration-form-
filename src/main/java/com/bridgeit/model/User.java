@@ -1,6 +1,8 @@
 package com.bridgeit.model;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class User {
 	private long number;
 	private String userName,password,email;
