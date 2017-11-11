@@ -17,7 +17,7 @@
 	<ctx:component-scan base-package="com.bridgeit.dao"></ctx:component-scan>
 	<ctx:component-scan base-package="com.bridgeit.model"></ctx:component-scan>
 	<ctx:component-scan base-package="com.bridgeit.service"></ctx:component-scan>
-	
+	<ctx:component-scan base-package="com.bridgeit.validation"></ctx:component-scan>
 <mvc:resources location="/assets/" mapping="/assets/**" />
 
 <bean id="database" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
@@ -30,10 +30,10 @@
 <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">  
 <property name="dataSource" ref="database"></property></bean>
 
-<bean id="registrationDao" class="com.bridgeit.dao.RegistrationDao" autowire="byType">
+<bean id="registrationDao" class="com.bridgeit.dao.RegistrationDaoImp" autowire="byType">
 
 </bean>
-<bean id="loginDao" class="com.bridgeit.dao.LoginDao" autowire="byType">
+<bean id="loginDao" class="com.bridgeit.dao.LoginDaoImp" autowire="byType">
 
 </bean>
  

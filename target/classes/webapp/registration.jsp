@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
+    	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,6 +32,12 @@
     </form>  
  -->
   <div class="container">
+  
+  <c:set var="details" value="${message}" />
+<c:if test="${details!=null}">
+<c:out value="${details}"></c:out>
+</c:if>
+  
 
           <div class="row">
             <div class="col-sm-6 col-sm-offset-3">

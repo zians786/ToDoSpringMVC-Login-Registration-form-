@@ -2,71 +2,90 @@ package com.bridgeit.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bridgeit.dao.RegistrationDao;
 import com.bridgeit.model.User;
+import com.bridgeit.service.Service;
+import com.bridgeit.validation.Validation;
 
 @Controller
 public class UserController {
 
 	@Autowired
-	RegistrationDao register;
+	Service service;
 
 	@Autowired
 	User user;
+	
+	@Autowired
+	Validation validate;
 
 	@PostMapping("/registration")
 	public ModelAndView registration(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
 
-		user.setUserName(request.getParameter("name"));
+		user.setUserName(request.getParameter("userName"));
 		user.setEmail(request.getParameter("email"));
-		System.out.println(user.getEmail());
 		user.setPassword(request.getParameter("password"));
 		user.setNumber(Long.parseLong(request.getParameter("number")));
-		String message = register.emailValidaton();
-		if (message!=null) {
-			modelAndView.setViewName("display.jsp");
-
-			modelAndView.addObject("message", "User Already Exist, Registration Unsuccessfull...");
+		if(validate.userValidate()) {
+			String message = service.registrationValidate();
+			modelAndView.setViewName("index.jsp");
+			modelAndView.addObject("message", message);
 			return modelAndView;
-		} else {
-			if (register.registrationValidate(user)) {
-				modelAndView.setViewName("display.jsp");
-
-				modelAndView.addObject("message", "Registration Successfull...");
-				return modelAndView;
-			} else {
-				modelAndView.setViewName("display.jsp");
-
-				modelAndView.addObject("message","Error in Registration..");
-				return modelAndView;
-			}
-		}
-		// String message=user.getEmail();
+		}else
+		modelAndView.setViewName("registration.jsp");
+		modelAndView.addObject("message", "Please Enter Correct Values...");
+			return modelAndView;
 		}
 
+	@PostMapping("/login")
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
 	
 			ModelAndView modelAndView = new ModelAndView();
-			user.setUserName(request.getParameter("name"));
+			user.setUserName(request.getParameter("userName"));
 			user.setPassword(request.getParameter("password"));
-			return modelAndView;
+			String name=service.loginValidate();
+			if(name!=null) {
+				
+				HttpSession session=request.getSession();
+				session.setAttribute("details", user.getUserName());
+				modelAndView.setViewName("dashboard.jsp");
+				return modelAndView;
+				
+			}else {
+				modelAndView.setViewName("index.jsp");
+
+				modelAndView.addObject("message", "Invalid Username or Password");
+				return modelAndView;
+
+			}
+			
+
 		
 		}
 
-	public void ajaxEmailValidation() {
+	
+	@PostMapping("/logout")
+	public ModelAndView logout(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView();
+		HttpSession session=request.getSession();
+		session.invalidate();
+		modelAndView.setViewName("index.jsp");
 
+		modelAndView.addObject("message", "Logout Successfully...");
+		return modelAndView;
+		
 	}
+	
+//	public void ajaxEmailValidation() {
+//
+//	}
 
-	public void logout() {
-
-	}
+	
+	
 }

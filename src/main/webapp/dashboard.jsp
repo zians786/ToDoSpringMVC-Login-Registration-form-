@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -25,12 +25,12 @@ response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");//HTTP 
 response.setHeader("pragma","no-cache");//HTTP 1.0
 response.setHeader("Expires","0"); //Proxies
 session=request.getSession();
-String name=session.getAttribute("userName").toString(); 
+String name=session.getAttribute("details").toString(); 
 out.println("Welcome "+name);
 %>
 
 
-<form action="Logout" method="get">
+<form action="logout" method="post">
 
    <div class="form-group">
 

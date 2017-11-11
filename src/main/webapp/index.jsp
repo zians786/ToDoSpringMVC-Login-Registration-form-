@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,17 +22,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
-		String details = (String) request.getAttribute("details");
-
-		if (details != null) {
-			out.println(details);
-			request.removeAttribute("details");
-		}
-	%>
 
 
-	<div class="Container">
+
+<div class="Container">
+<c:set var="details" value="${message}" />
+<c:if test="${details!=null}">
+<c:out value="${details}"></c:out>
+</c:if>
+	
 		<div class="row">
 			<div class="col-sm-4 col-sm-offset-4">
 
@@ -46,7 +45,7 @@
 						</div>
 					</div>
 					<div class="form-bottom">
-						<form role="form" action="login.jsp" method="post"
+						<form role="form" action="login" method="post"
 							class="login-form">
 							<div class="form-group">
 

@@ -1,5 +1,9 @@
 package com.bridgeit.service;
 
-public class Service {
+public interface Service {
+	
 
+	String registrationValidate();
+
+	String loginValidate();
 }
